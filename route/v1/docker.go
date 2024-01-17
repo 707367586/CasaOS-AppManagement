@@ -194,7 +194,7 @@ func InstallApp(c *gin.Context) {
 	eventProperties[common.PropertyTypeAppName.Name] = m.Label
 	eventProperties[common.PropertyTypeAppIcon.Name] = m.Icon
 	eventProperties[common.PropertyTypeImageName.Name] = imageName
-
+	//消息管道拉取安装docker容器
 	go func() {
 		go service.PublishEventWrapper(ctx, common.EventTypeAppInstallBegin, nil)
 
@@ -658,6 +658,7 @@ func PutDockerDaemonConfiguration(c *gin.Context) {
 	c.JSON(http.StatusOK, &modelCommon.Result{Success: common_err.SUCCESS, Message: common_err.GetMsg(common_err.SUCCESS), Data: request})
 }
 
+// 开始执行
 func pullAndInstall(ctx context.Context, imageName string, m *model.CustomizationPostData) error {
 	// step：下载镜像
 	if err := func() error {
