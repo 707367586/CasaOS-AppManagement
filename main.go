@@ -46,7 +46,9 @@ func main() {
 
 	// parse arguments and intialize
 	{
+		//，当在命令行中使用 -c 或 --c 后跟配置文件路径时，将获取该路径。默认值为空字符串。
 		configFlag := flag.String("c", "", "config file path")
+		//当在命令行中使用 -v 或 --v 时，将设置为 true，表示用户请求查看版本信息。
 		versionFlag := flag.Bool("v", false, "version")
 
 		flag.Parse()
@@ -69,17 +71,22 @@ func main() {
 
 	// setup cron
 	{
+		//
 		crontab := cron.New(cron.WithSeconds())
 
 		// schedule async v2job to get v2 appstore list
+		//异步更新v2应用列表
 		go func() {
 			// run once at startup
+			// 进行初始化
 			if err := service.MyService.V2AppStore().UpdateCatalog(); err != nil {
+
 				logger.Error("error when updating AppStore catalog at startup", zap.Error(err))
 			}
 		}()
 
 		if _, err := crontab.AddFunc("@every 10m", func() {
+			//每十分钟执行一次更新列表
 			if err := service.MyService.V2AppStore().UpdateCatalog(); err != nil {
 				logger.Error("error when updating AppStore catalog", zap.Error(err))
 			}

@@ -33,8 +33,8 @@ func InitV1Router() *gin.Engine {
 		v1ContainerGroup.Use()
 		{
 
-			v1ContainerGroup.GET("", v1.MyAppList) ///my/list
-			v1ContainerGroup.GET("/usage", v1.AppUsageList)
+			v1ContainerGroup.GET("", v1.MyAppList)                    ///my/list
+			v1ContainerGroup.GET("/usage", v1.AppUsageList)           //硬件使用情况
 			v1ContainerGroup.GET("/:id", v1.ContainerUpdateInfo)      ///update/:id/info
 			v1ContainerGroup.GET("/:id/compose", v1.ToComposeYAML)    // /app/setting/:id
 			v1ContainerGroup.GET("/:id/logs", v1.ContainerLog)        // /app/logs/:id

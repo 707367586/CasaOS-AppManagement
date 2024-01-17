@@ -15,6 +15,7 @@ import (
 	"go.uber.org/zap"
 )
 
+// 自动化工具生成对应方法处理
 type AppStoreManagement struct {
 	onAppStoreRegister   []func(string) error
 	onAppStoreUnregister []func(string) error

@@ -30,8 +30,9 @@ var (
 )
 
 type Services interface {
+	//应用管理
 	AppStoreManagement() *AppStoreManagement
-
+	//应用商城
 	V2AppStore() AppStore
 
 	// Git() *GitService
@@ -64,7 +65,7 @@ func NewService(RuntimePath string) Services {
 
 type store struct {
 	appStoreManagement *AppStoreManagement
-
+	//v2应用商店
 	v2appStore AppStore
 
 	// git     *GitService
